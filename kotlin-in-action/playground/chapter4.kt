@@ -109,3 +109,52 @@ class MyButton : View {
 }
 
 
+interface UserAble {
+    val nickname: String
+}
+
+interface UserAble2 {
+    val email: String
+    val nickname: String
+        get() = email.substringBefore("@")
+}
+
+// 주 생성자 안에 프로퍼티를 직접 선언하는 간결한 구문
+class PrivateUser(override val nickname: String) : UserAble
+
+// 커스텀 게터로 프로퍼티를 설정한다.
+class SubscribingUser(private val email: String) : UserAble {
+    override val nickname: String
+        get() = email.substringBefore("@")
+}
+
+// 초기화 식으로 nickname 값을 초기화한다.
+class FacebookUser(val accountId: Int) : UserAble {
+    override val nickname = getFacebookName(accountId)
+    private fun getFacebookName(accountId: Int): String {
+        return "FacebookName"
+    }
+}
+
+
+class User2(val name: String) {
+    var address: String = "unspecified"
+        set(value: String) {
+            println(
+                """
+                Address was changed for $name
+                "$field" -> "$value".""".trimIndent() // 뒷 받침하는 필드 값 읽기
+            )
+            field = value // 뒷받침하는 필드 값 변경하기
+        }
+}
+
+
+class LengthCounter {
+    var counter: Int = 0
+        private set
+
+    fun addWord(word: String) {
+        counter += word.length
+    }
+}
