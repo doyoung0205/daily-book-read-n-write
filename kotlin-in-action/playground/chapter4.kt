@@ -1,5 +1,9 @@
 package `kotlin-in-action`.playground
 
+import java.lang.IllegalArgumentException
+import javax.naming.Context
+import javax.swing.text.AttributeSet
+
 fun main() {
     val button = Button()
     button.click()
@@ -59,3 +63,49 @@ internal open class TalkativeButton : Focusable {
 //    yell(); // private
 //    whisper(); // proteced
 //}
+
+
+fun eval(e: Expr): Int {
+    return when (e) {
+        is Expr.Num -> e.value
+        is Expr.Sum -> eval(e.right) + eval(e.left)
+        else -> throw IllegalArgumentException("Unknown expression")
+    }
+}
+
+//interface Expr
+sealed class Expr {
+    class Num(val value: Int) : Expr()
+    class Sum(val left: Expr, val right: Expr) : Expr()
+
+}
+
+
+open class User(
+    val nickName: String = "doyoung" // defaultt 생성자
+)
+
+class TwitterUser(nickName: String) : User(nickName)
+
+
+open class View {
+    constructor(ctx: Context) { // 부 생성자
+
+    }
+
+
+    constructor(ctx: Context, attr: String) { // 부 생성자
+
+    }
+
+}
+
+class MyButton : View {
+    constructor(ctx: Context) : this(ctx, "MY_STYLE") { // 이 클래스의 다른 생성자에게 위임한다.
+    }
+
+    constructor(ctx: Context, attr: String) : super(ctx, attr) { // 상위 클래스와 생성자 호출
+    }
+}
+
+
