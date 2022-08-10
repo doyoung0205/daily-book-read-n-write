@@ -1,5 +1,8 @@
 package `kotlin-in-action`.playground
 
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
+import java.awt.event.MouseListener
 import java.lang.IllegalArgumentException
 import java.util.Collections
 import javax.naming.Context
@@ -16,6 +19,9 @@ fun main() {
     println(message)
 
     val copy = Client2("dory", 3).copy(name = "dory")
+
+    Payroll.allEmployees.add("dory")
+    Payroll.calculateSalary()
 
 }
 
@@ -239,5 +245,74 @@ class CountingSet<T>(
     override fun addAll(elements: Collection<T>): Boolean {
         objectAdded += elements.size
         return innerSet.addAll(elements)
+    }
+}
+
+
+object Payroll {
+    val allEmployees = arrayListOf<String>()
+
+    fun calculateSalary() {
+        for (employee in allEmployees) {
+            // ...
+        }
+    }
+}
+
+class A {
+    companion object {
+        fun bar() {
+            println("Companion object called")
+        }
+    }
+}
+
+
+class User3 private constructor(val nickName: String) {
+    companion object {
+        fun newSubscribingUser(email: String) =
+            User3(email.substringBefore("@"))
+
+        fun newFacebookUser(accountId: Int) =
+            User3("facebook$accountId")
+    }
+}
+
+interface JSONFactory<T> {
+    fun fromJSON(jsonText: String): T
+}
+
+class Person(val name: String) {
+    companion object : JSONFactory<Person> {
+        override fun fromJSON(jsonText: String): Person {
+            return Person(jsonText)
+        }
+    }
+}
+
+
+// 비즈니스 모듈
+
+class Person2(val firstName: String, val lastName: String) {
+    companion object {
+
+    }
+}
+
+// 클라이언트/서버 통신 모듈
+fun Person2.Companion.fromJSON(json: String): Person2 {
+    // ...
+    return Person2(json)
+}
+
+fun something() {
+    val listener = object : MouseAdapter() {
+        override fun mouseClicked(e: MouseEvent?) {
+            super.mouseClicked(e)
+        }
+
+        override fun mouseEntered(e: MouseEvent?) {
+            super.mouseEntered(e)
+        }
     }
 }
