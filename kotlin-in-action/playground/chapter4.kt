@@ -1,6 +1,7 @@
 package `kotlin-in-action`.playground
 
 import java.lang.IllegalArgumentException
+import java.util.Collections
 import javax.naming.Context
 import javax.swing.text.AttributeSet
 
@@ -13,6 +14,8 @@ fun main() {
 //    println(Client("dory", 1))
     val message = Client("dory", 1) == Client("dory", 1)
     println(message)
+
+    val copy = Client2("dory", 3).copy(name = "dory")
 
 }
 
@@ -182,5 +185,59 @@ class Client(val name: String, val postalCode: Int) {
         return result
     }
 
+    fun copy(
+        name: String = this.name,
+        postalCode: Int = this.postalCode
+    ) = Client(name, postalCode)
+}
 
+
+data class Client2(val name: String, val postalCode: Int)
+
+
+class DelegatingCollection<T>() : Collection<T> {
+
+    private val innerList = arrayListOf<T>()
+
+    override val size: Int
+        get() = innerList.size
+
+    override fun isEmpty(): Boolean {
+        return innerList.isEmpty()
+    }
+
+    override fun iterator(): Iterator<T> {
+        return innerList.iterator()
+    }
+
+    override fun containsAll(elements: Collection<T>): Boolean {
+        return innerList.containsAll(elements)
+    }
+
+    override fun contains(element: T): Boolean {
+        return innerList.contains(element)
+    }
+}
+
+
+class DelegatingCollection2<T>(
+    innerList: Collection<T> = ArrayList<T>()
+) : Collection<T> by innerList
+
+
+class CountingSet<T>(
+    val innerSet: MutableCollection<T> = HashSet<T>()
+) : MutableCollection<T> by innerSet {
+
+    var objectAdded = 0
+
+    override fun add(element: T): Boolean {
+        objectAdded++
+        return innerSet.add(element)
+    }
+
+    override fun addAll(elements: Collection<T>): Boolean {
+        objectAdded += elements.size
+        return innerSet.addAll(elements)
+    }
 }
