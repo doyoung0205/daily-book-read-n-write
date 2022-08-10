@@ -5,10 +5,15 @@ import javax.naming.Context
 import javax.swing.text.AttributeSet
 
 fun main() {
-    val button = Button()
-    button.click()
-    button.setFocus(true)
-    button.showOff()
+//    val button = Button()
+//    button.click()
+//    button.setFocus(true)
+//    button.showOff()
+
+//    println(Client("dory", 1))
+    val message = Client("dory", 1) == Client("dory", 1)
+    println(message)
+
 }
 
 interface Clickable {
@@ -157,4 +162,25 @@ class LengthCounter {
     fun addWord(word: String) {
         counter += word.length
     }
+}
+
+class Client(val name: String, val postalCode: Int) {
+    override fun toString() = "Client(name=${name},postalCode=${postalCode})"
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Client) return false
+
+        if (name != other.name) return false
+        if (postalCode != other.postalCode) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + postalCode
+        return result
+    }
+
+
 }
