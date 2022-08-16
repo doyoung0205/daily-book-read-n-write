@@ -234,7 +234,6 @@ class DelegatingCollection2<T>(
 class CountingSet<T>(
     val innerSet: MutableCollection<T> = HashSet<T>()
 ) : MutableCollection<T> by innerSet {
-
     var objectAdded = 0
 
     override fun add(element: T): Boolean {
@@ -295,7 +294,6 @@ class Person(val name: String) {
 
 class Person2(val firstName: String, val lastName: String) {
     companion object {
-
     }
 }
 
