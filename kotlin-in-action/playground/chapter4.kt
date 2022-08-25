@@ -302,7 +302,7 @@ class Person2(val firstName: String, val lastName: String) {
 // 클라이언트/서버 통신 모듈
 fun Person2.Companion.fromJSON(json: String): Person2 {
     // ...
-    return Person2(json)
+    return Person2("", "")
 }
 
 fun something() {
