@@ -1,6 +1,6 @@
 package `kotlin-in-action`.playground
 
-import joinToString
+import java.util.StringJoiner
 
 fun main() {
     val people = listOf(Person3("Alice", 30), Person3("Bob", 31))
@@ -16,8 +16,16 @@ fun main() {
     people.joinToString(separator = " ") { p -> p.name }
     people.joinToString(separator = " ") { it.name }
 
+    val isTrue = people.all { person -> person.age > 10 }
+    val isTrue2 = people.any { person -> person.age > 10 }
+    val count = people.count { person -> person.age > 10 }
+    people.groupBy { people -> people.age }
+
+    listOf(Book("d", listOf("A", "B"))).flatMap { it.authors }.toSet()
+
 }
 
+class Book (val title: String, val authors: List<String>)
 data class Person3(val name: String, val age: Int)
 
 fun findTheOldest(people: List<Person3>) {
@@ -32,4 +40,16 @@ fun findTheOldest(people: List<Person3>) {
     println(theOldest)
 }
 
+fun salute() = println("Salute!")
+// >>> run(::salute)
+
+
+// sendEmail 에게 작업을 위임한다.
+val action = { person: Person3, message: String -> sendEmail(person, message) }
+
+fun sendEmail(person: Person3, message: String) {
+
+}
+
+val nextAction = ::sendEmail
 
