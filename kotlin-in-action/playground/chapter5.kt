@@ -23,9 +23,13 @@ fun main() {
 
     listOf(Book("d", listOf("A", "B"))).flatMap { it.authors }.toSet()
 
+    listOf(1, 2, 3, 4).asSequence()
+        .map { print("map($it)"); it * it }
+        .filter { print("filter($it)"); it % 2 == 0 }
+        .toList()
 }
 
-class Book (val title: String, val authors: List<String>)
+class Book(val title: String, val authors: List<String>)
 data class Person3(val name: String, val age: Int)
 
 fun findTheOldest(people: List<Person3>) {
