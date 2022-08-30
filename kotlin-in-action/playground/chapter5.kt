@@ -33,6 +33,7 @@ fun main() {
         .filter { print("filter($it)"); it % 2 == 0 }
         .toList()//    map(1)map(2)map(3)map(4)filter(1)filter(4)filter(9)filter(16)
 
+    alphabet2()
 
 }
 
@@ -67,6 +68,53 @@ val nextAction = ::sendEmail
 fun createAllDoneRunnable(): Runnable {
     return Runnable { println("All done!") }
 }
+
+fun alphabet(): String {
+    val result = StringBuilder()
+    for (letter in 'A'..'Z') {
+        result.append(letter)
+    }
+    result.append("\nNow I know the alphabet!")
+    return result.toString()
+}
+
+fun alphabet2(): String {
+    val stringBuilder = StringBuilder()
+    return with(stringBuilder) {
+        for (letter in 'A'..'Z') {
+            this.append(letter)
+        }
+        this.append("\nNow I know the alphabet!")
+        return this.toString()
+    }
+}
+
+fun alphabet3() = with(StringBuilder()) {
+    for (letter in 'A'..'Z') {
+        append(letter)
+    }
+    append("\nNow I know the alphabet!")
+    toString()
+}
+
+
+fun alphabet4() = StringBuilder().apply {
+    for (letter in 'A'..'Z') {
+        append(letter)
+    }
+    append("\nNow I know the alphabet!")
+}.toString()
+
+
+fun alphabet5() = buildString {
+    for (letter in 'A'..'Z') {
+        append(letter)
+    }
+    append("\nNow I know the alphabet!")
+}.toString()
+
+
+
 
 
 
