@@ -1,7 +1,5 @@
 package `kotlin-in-action`.playground
 
-import java.util.StringJoiner
-
 fun main() {
     val people = listOf(Person3("Alice", 30), Person3("Bob", 31))
     println(findTheOldest(people))
@@ -26,7 +24,16 @@ fun main() {
     listOf(1, 2, 3, 4).asSequence()
         .map { print("map($it)"); it * it }
         .filter { print("filter($it)"); it % 2 == 0 }
-        .toList()
+        .toList() //    map(1)filter(1)map(2)filter(4)map(3)filter(9)map(4)filter(16)
+
+    println()
+
+    listOf(1, 2, 3, 4)
+        .map { print("map($it)"); it * it }
+        .filter { print("filter($it)"); it % 2 == 0 }
+        .toList()//    map(1)map(2)map(3)map(4)filter(1)filter(4)filter(9)filter(16)
+
+
 }
 
 class Book(val title: String, val authors: List<String>)
@@ -56,4 +63,10 @@ fun sendEmail(person: Person3, message: String) {
 }
 
 val nextAction = ::sendEmail
+
+fun createAllDoneRunnable(): Runnable {
+    return Runnable { println("All done!") }
+}
+
+
 
