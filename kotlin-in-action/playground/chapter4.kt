@@ -2,11 +2,7 @@ package `kotlin-in-action`.playground
 
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import java.awt.event.MouseListener
-import java.lang.IllegalArgumentException
-import java.util.Collections
 import javax.naming.Context
-import javax.swing.text.AttributeSet
 
 fun main() {
 //    val button = Button()
