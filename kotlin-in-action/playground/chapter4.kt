@@ -22,7 +22,6 @@ fun main() {
 
     Payroll.allEmployees.add("dory")
     Payroll.calculateSalary()
-
 }
 
 interface Clickable {
